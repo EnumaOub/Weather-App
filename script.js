@@ -11,9 +11,14 @@ const getWeather = async (location) => {
 };
 
 const formatTemperature = (event, weather, container) => {
-    const celsius = document.querySelector(`#${event.target.id} #select-celsius`);
-    const farenheit = document.querySelector(`#${event.target.id} #select-farenheit`);
-    event.target.classList.toggle("celsius")
+    let btnTrue = event.target
+    if (event.target.id === "select-celsius" || event.target.id === "select-farenheit" ) {
+        btnTrue = document.getElementById(event.target.id).parentElement;
+    }
+
+    const celsius = document.querySelector(`#${btnTrue.id} #select-celsius`);
+    const farenheit = document.querySelector(`#${btnTrue.id} #select-farenheit`);
+    btnTrue.classList.toggle("celsius")
     celsius.classList.toggle("active");   
     farenheit.classList.toggle("active");
     if (event.target.classList.contains("celsius")){

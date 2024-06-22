@@ -100,8 +100,8 @@ input[type="submit"] {
 }
 
 .format-temperature  {
-    width: 100%;
-    padding: .4rem .8rem;
+    font-size: 2rem;
+    padding: .4rem 2rem;
     cursor: pointer;
     border-radius: .5rem;
     background-color: rgba(255, 255, 255, 0.644);
@@ -117,4 +117,8 @@ input[type="submit"] {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+#current-weather-location {
+    font-weight: 800;
 }
