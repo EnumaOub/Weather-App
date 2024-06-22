@@ -1,0 +1,120 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+:root {
+    --main-color: #ffffff;
+}
+
+body {
+    font-family: system-ui, sans-serif; 
+    background-image: url(assets/background/bckg_alphacoders.jpeg);
+    background-size: cover;
+    color: var(--main-color);
+}
+
+/* Header parameters */
+
+header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+/* Footer */
+
+footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+footer .fa {
+    color: var(--main-color);
+    font-size: 5rem;
+    opacity: .7;
+    text-decoration: none;
+}
+
+/* Main */
+
+main {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    margin-left: 2rem;
+    display: flex;
+    gap: .5rem;
+    justify-content: flex-start;
+    align-content: center;
+}
+
+#location-input{
+    padding: .5em;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: var(--main-color);
+    border-radius: 1rem;
+    width: 20rem;
+}
+
+input[type="submit"] {
+    cursor: pointer;
+    color: var(--main-color);
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    width: 4rem;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid black;
+    border-radius: 2rem;
+    background-color: rgba(131, 170, 202, 0.8);
+    backdrop-filter: blur(1rem);
+    padding: 1rem;
+    font-size: 3rem;
+    width: 60%;
+}
+
+.format-temperature  {
+    width: 100%;
+    padding: .4rem .8rem;
+    cursor: pointer;
+    border-radius: .5rem;
+    background-color: rgba(255, 255, 255, 0.644);
+    border: none;
+}
+
+.format-temperature .active {
+    font-weight: 800;
+}
+
+#current-weather-weather {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
