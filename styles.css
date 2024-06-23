@@ -17,7 +17,7 @@ body {
 /* Header parameters */
 
 header {
-    position: sticky;
+    position: relative;
     top: 0;
     left: 0;
     display: flex;
@@ -27,9 +27,40 @@ header {
 }
 
 header h1 {
-    font-size: 3rem;
+    font-size: 2rem;
     margin-top: 0.5rem;
     margin-left: 0.5rem;
+}
+
+form {
+    margin-left: 2rem;
+    display: flex;
+    gap: .5rem;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+#location-input{
+    padding: .5em;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: var(--main-color);
+    border-radius: 1rem;
+    max-width: 70%;
+}
+
+#btn-submit {
+    cursor: pointer;
+    color: var(--main-color);
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    padding: .4rem;
+    font-size: 1rem;
+    max-width: 25%;
 }
 
 /* Footer */
@@ -58,33 +89,11 @@ main {
     align-items: center;
 }
 
-form {
-    margin-left: 2rem;
-    display: flex;
-    gap: .5rem;
-    justify-content: flex-start;
-    align-content: center;
-}
 
-#location-input{
-    padding: .5em;
-    font-size: 1.2rem;
-    line-height: 1.4;
-    background-color: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: var(--main-color);
-    border-radius: 1rem;
-    width: 20rem;
-}
 
-input[type="submit"] {
-    cursor: pointer;
-    color: var(--main-color);
-    border-radius: 1rem;
-    background-color: rgba(255, 255, 255, 0.2);
-    border: none;
-    width: 4rem;
-}
+
+
+
 
 .card {
     display: flex;
@@ -97,11 +106,12 @@ input[type="submit"] {
     background-color: rgba(0, 36, 66, 0.4);
     backdrop-filter: blur(1rem);
     padding: 2rem;
-    font-size: 2.2rem;
+    font-size: 2rem;
+    max-width: 70%;
 }
 
 .format-temperature  {
-    font-size: 2rem;
+    font-size: 1.2rem;
     padding: .4rem 2rem;
     cursor: pointer;
     border-radius: .5rem;
@@ -124,14 +134,22 @@ input[type="submit"] {
     font-weight: 800;
 }
 
+#forecast-weather-container-global {
+    padding: 1rem;
+    overflow: scroll;
+}
+
 #forecast-weather-container {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
     gap: 1rem;
 }
 
 #forecast-weather-container .card {
-    font-size: 1.5rem;
+    width: 30%;
+    font-size: 1.2rem;
     box-shadow: .2rem .2rem .5rem black;
 }
 
@@ -145,4 +163,77 @@ input[type="submit"] {
 .icon {
     display: block;
     filter: invert(100%);
+}
+
+@media only screen and (max-height: 900px) { 
+
+    .card {
+        font-size: 1.5rem;
+    }
+
+    #forecast-weather-container .card {
+        font-size: 1rem;
+    }
+
+    
+}
+
+@media only screen and (max-height: 800px) { 
+
+    .card {
+        font-size: 1rem;
+    }
+
+    .format-temperature  {
+        font-size: .8rem;
+    }
+
+    #forecast-weather-container .card {
+        font-size: 1rem;
+    }
+
+    #forecast-weather-container-global {
+        font-size: 1rem;
+    }
+
+    
+}
+
+@media only screen and (max-height: 700px) { 
+
+    .card {
+        font-size: .7rem;
+    }
+
+    .format-temperature  {
+        font-size: .8rem;
+    }
+
+    #forecast-weather-container .card {
+        font-size: .5rem;
+    }
+
+    
+}
+
+@media only screen and (max-width: 700px) { 
+    
+    #title-page h1 {
+        font-size: 2rem;
+    }
+
+    .card {
+        font-size: 1.5rem;
+    }
+
+    #forecast-weather-container .card {
+        font-size: 1rem;
+    }
+
+    #forecast-weather-container-global {
+        padding: 1rem;
+    }
+
+
+    
 }
