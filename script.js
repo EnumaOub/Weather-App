@@ -1,12 +1,13 @@
 
-const APIKey = "720d3045495449d59f5221719242106";
+
 
 const handleError = (err) => {
     console.log(`ERROR: ${err}`);
 };
 
 const getWeather = async (location) => {
-    const weather = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${APIKey}&q=${location}`, {mode: 'cors'});
+    const APIKey = "720d3045495449d59f5221719242106";
+    const weather = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${APIKey}&q=${location}&days=3`, {mode: 'cors'});
     return weather.json().catch(handleError);
 };
 
@@ -21,11 +22,11 @@ const formatTemperature = (event, weather, container) => {
     btnTrue.classList.toggle("celsius")
     celsius.classList.toggle("active");   
     farenheit.classList.toggle("active");
-    if (event.target.classList.contains("celsius")){
-        container.textContent = `${weather.current.temp_c}°C, ${weather.current.condition.text}`;
+    if (btnTrue.classList.contains("celsius")){
+        container.textContent = `${weather.day.avgtemp_c}°C, ${weather.day.condition.text}`;
     }
     else {
-        container.textContent = `${weather.current.temp_f}°F, ${weather.current.condition.text}`;
+        container.textContent = `${weather.day.avgtemp_c}°F, ${weather.day.condition.text}`;
     } 
 };
 
@@ -53,8 +54,8 @@ const getUIWeather = (weather, id) => {
 
     weatherV.id = id;
 
-    temperature.textContent = `${weather.current.temp_c}°C, ${weather.current.condition.text}`;
-    icon.src = weather.current.condition.icon;
+    temperature.textContent = `${weather.day.avgtemp_c}°C, ${weather.day.condition.text}`;
+    icon.src = weather.day.condition.icon;
     weatherV.appendChild(temperature);
     weatherV.appendChild(icon);
     
@@ -77,7 +78,39 @@ const getBtnFormat = (weather, temperature, id) => {
     return btnFormatTemp;
 };
 
-const buildForecast = () => {
+const buildForecast = (weather) => {
+    const container = document.createElement("div");
+    const containerCard = document.createElement("div");
+    const title = document.createElement("h3");
+    const dateDict = {
+        today: 0,
+        tomorrow: 1,
+        Overmorrow: 2
+    };
+
+    container.className = "card";
+
+    container.id = "forecast-weather-container-global";
+    containerCard.id = "forecast-weather-container"
+    title.id = "forceast-title";
+
+    title.textContent = "Forecast";
+    container.appendChild(title);
+
+
+    for (const date in dateDict) {
+        const card = document.createElement("div");
+        const forecast = weather.forecast.forecastday[dateDict[date]];
+        const weatherForecast = getUIWeather(forecast, `${date}-weather`)[0];
+
+        card.className = "card";
+        card.appendChild(weatherForecast);
+        containerCard.appendChild(card);
+    }
+
+    container.appendChild(containerCard);
+
+    return container;
 
 };
 
@@ -85,8 +118,8 @@ const buildForecast = () => {
 const buildCurrent = (weather) => {
     const container = document.createElement("div");
     const location = getLocation(weather, "current-weather-location");
-    const [weatherV, temperature] = getUIWeather(weather, "current-weather-weather");
-    const btnFormatTemp = getBtnFormat(weather, temperature, "current-weather-container");
+    const [weatherV, temperature] = getUIWeather(weather.forecast.forecastday[0], "current-weather");
+    const btnFormatTemp = getBtnFormat(weather.forecast.forecastday[0], temperature, "current-weather-container");
 
     container.className = "card";
 
@@ -104,11 +137,18 @@ const buildCards = (weather) => {
     const main = document.getElementsByTagName("main")[0];
     main.innerHTML = "";
     main.appendChild(buildCurrent(weather));
+    main.appendChild(buildForecast(weather));
 };
 
 const setUI = () => {
     const input = document.getElementById("location-input");
     const form = document.getElementById("location-form");
+    getWeather("Geneve")
+        .then(weather => {
+            console.log(weather);
+            buildCards(weather);
+        })
+        .catch(handleError);
 
     form.addEventListener("submit", (event) => {
         event.preventDefault();
