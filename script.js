@@ -12,21 +12,39 @@ const getWeather = async (location) => {
 };
 
 const formatTemperature = (event, weather, container) => {
+    const temperature = document.getElementsByClassName("temperature");
     let btnTrue = event.target
     if (event.target.id === "select-celsius" || event.target.id === "select-farenheit" ) {
         btnTrue = document.getElementById(event.target.id).parentElement;
     }
-
     const celsius = document.querySelector(`#${btnTrue.id} #select-celsius`);
     const farenheit = document.querySelector(`#${btnTrue.id} #select-farenheit`);
+
     btnTrue.classList.toggle("celsius")
     celsius.classList.toggle("active");   
     farenheit.classList.toggle("active");
     if (btnTrue.classList.contains("celsius")){
-        container.textContent = `${weather.day.avgtemp_c}°C, ${weather.day.condition.text}`;
+        for (const temp of temperature) {
+            temp.classList.toggle("active");
+            if (temp.classList.contains("temp-celsius")) {
+                temp.style.display = "inline";
+                
+            }
+            else {
+                temp.style.display = "none";
+            }
+        }
     }
     else {
-        container.textContent = `${weather.day.avgtemp_c}°F, ${weather.day.condition.text}`;
+        for (const temp of temperature) {
+            temp.classList.toggle("active");
+            if (temp.classList.contains("temp-farenheit")) {
+                temp.style.display = "inline";
+            }
+            else {
+                temp.style.display = "none";
+            }
+        }
     } 
 };
 
@@ -87,7 +105,15 @@ const getUIWeather = (weather, id) => {
     weatherV.id = id;
     weatherV.className = "weather-general"
 
-    temperature.textContent = `${weather.day.avgtemp_c}°C, ${weather.day.condition.text}`;
+    temperature.innerHTML = `
+                            <span class="temperature temp-celsius active">
+                                ${weather.day.avgtemp_c}°C,
+                            </span>
+                            <span class="temperature temp-farenheit" style="display: none;">
+                                ${weather.day.avgtemp_f}°F,
+                            </span>
+                            ${weather.day.condition.text}
+                            `;
     icon.src = weather.day.condition.icon;
     weatherV.appendChild(temperature);
     weatherV.appendChild(icon);
