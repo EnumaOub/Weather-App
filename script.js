@@ -7,6 +7,7 @@ const handleError = (err) => {
 
 const getWeather = async (location) => {
     const APIKey = "720d3045495449d59f5221719242106";
+    getLoading();
     const weather = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${APIKey}&q=${location}&days=3`, {mode: 'cors'});
     return weather.json().catch(handleError);
 };
@@ -207,6 +208,20 @@ const buildCards = (weather) => {
     main.appendChild(buildCurrent(weather));
     main.appendChild(buildForecast(weather));
 };
+
+const getLoading = () => {
+    const main = document.getElementsByTagName("main")[0];
+    const loadContainer = document.createElement("div");
+    const loading = document.createElement("h1");
+
+    loadContainer.id = "load-container";
+    loading.id = "loading";
+
+    loading.textContent = "Loading..."
+
+    loadContainer.appendChild(loading);
+    main.appendChild(loadContainer);
+}
 
 const setUI = () => {
     const input = document.getElementById("location-input");
