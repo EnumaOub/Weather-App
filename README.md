@@ -8,3 +8,4 @@ It was a project allowing the application of promise with async and await method
 [Come see the live site](https://enumaoub.github.io/Weather-App/)
 
 
+![alt text](./media/main.png)
