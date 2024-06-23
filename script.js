@@ -47,12 +47,45 @@ const getLocation = (weather, id) => {
     return location;
 };
 
+const getWeatherComp = (weather, id) => {
+    const weatherComp = document.createElement("div");
+    const rainContainer = document.createElement("div");
+    const rain = document.createElement("p");
+    const rainIcon = document.createElement("img");
+    const humidityContainer = document.createElement("div");
+    const humidity = document.createElement("p");
+    const humidityIcon = document.createElement("img");
+
+    weatherComp.id = id;
+    weatherComp.className = "weather-comp";
+
+    rain.textContent = `${weather.day.daily_chance_of_rain}%`;
+    rainIcon.src = `./assets/icons/rain.svg`;
+    rainIcon.id = "icon-rain";
+    rainIcon.className = "icon rain";
+    rainContainer.appendChild(rainIcon);
+    rainContainer.appendChild(rain);
+
+    humidity.textContent = `${weather.day.avghumidity}%`;
+    humidityIcon.src = `./assets/icons/humidity.svg`;
+    humidityIcon.id = "icon-humidity";
+    humidityIcon.className = "icon humidity";
+    humidityContainer.appendChild(humidityIcon);
+    humidityContainer.appendChild(humidity);
+
+    weatherComp.appendChild(rainContainer);
+    weatherComp.appendChild(humidityContainer);
+
+    return weatherComp;
+}
+
 const getUIWeather = (weather, id) => {
     const weatherV = document.createElement("div");
     const temperature = document.createElement("p");
     const icon = document.createElement("img");
 
     weatherV.id = id;
+    weatherV.className = "weather-general"
 
     temperature.textContent = `${weather.day.avgtemp_c}°C, ${weather.day.condition.text}`;
     icon.src = weather.day.condition.icon;
@@ -83,8 +116,8 @@ const buildForecast = (weather) => {
     const containerCard = document.createElement("div");
     const title = document.createElement("h3");
     const dateDict = {
-        today: 0,
-        tomorrow: 1,
+        Today: 0,
+        Tomorrow: 1,
         Overmorrow: 2
     };
 
@@ -100,11 +133,18 @@ const buildForecast = (weather) => {
 
     for (const date in dateDict) {
         const card = document.createElement("div");
+        const subTitle = document.createElement("h5");
         const forecast = weather.forecast.forecastday[dateDict[date]];
         const weatherForecast = getUIWeather(forecast, `${date}-weather`)[0];
+        const weatherComp = getWeatherComp(forecast, `${date}-weather-comp`)
+
+        subTitle.textContent = date;
+        subTitle.id = `${date}-title`;
 
         card.className = "card";
+        card.appendChild(subTitle);
         card.appendChild(weatherForecast);
+        card.appendChild(weatherComp);
         containerCard.appendChild(card);
     }
 
@@ -119,6 +159,7 @@ const buildCurrent = (weather) => {
     const container = document.createElement("div");
     const location = getLocation(weather, "current-weather-location");
     const [weatherV, temperature] = getUIWeather(weather.forecast.forecastday[0], "current-weather");
+    const weatherComp = getWeatherComp(weather.forecast.forecastday[0], "current-weather-comp");
     const btnFormatTemp = getBtnFormat(weather.forecast.forecastday[0], temperature, "current-weather-container");
 
     container.className = "card";
@@ -128,6 +169,7 @@ const buildCurrent = (weather) => {
     container.appendChild(btnFormatTemp);
     container.appendChild(location);
     container.appendChild(weatherV);
+    container.appendChild(weatherComp);
     
     return container;
 

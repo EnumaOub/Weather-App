@@ -92,12 +92,12 @@ input[type="submit"] {
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    border: 1px solid black;
+    border: none;
     border-radius: 2rem;
-    background-color: rgba(131, 170, 202, 0.8);
+    background-color: rgba(0, 36, 66, 0.4);
     backdrop-filter: blur(1rem);
-    padding: 3rem;
-    font-size: 3rem;
+    padding: 2rem;
+    font-size: 2.2rem;
 }
 
 .format-temperature  {
@@ -113,7 +113,7 @@ input[type="submit"] {
     font-weight: 800;
 }
 
-#current-weather-weather {
+.weather-general {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -132,4 +132,17 @@ input[type="submit"] {
 
 #forecast-weather-container .card {
     font-size: 1.5rem;
+    box-shadow: .2rem .2rem .5rem black;
+}
+
+.weather-comp {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.icon {
+    display: block;
+    filter: invert(100%);
 }
